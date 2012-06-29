@@ -97,9 +97,9 @@ There are a number of arguments you can pass to Panda that affect the entire bui
 
 You have to specify at least one Jade file as a template for your pages. Within your Jade template, you have access to the following variables:
 
-* `content` is the transformed HTML content of your Markdown file. Unless `notoc` option is used, an anchor tag is automatically injected inside each header tag to be used with the generated table of content. It could be used also to bookmark a specific section of a document
+* `content` is the transformed HTML content of your Markdown file. Unless `--notoc` option is used, an anchor tag is automatically injected inside each header tag to be used with the generated table of content. It could be used also to bookmark a specific section of a document
 * `metadata` is an object containing your document-based metadata values
-* `toc` is an object containing your document table of content. If `notoc` option is used, the toc is not generated, and this variable will be `false`
+* `toc` is an object containing your document table of content. If `--notoc` option is used, the toc is not generated, and this variable will be `false`
 * `manifest` is an object containing the Manifest.json properties
 * `options` is an object containing your passed in properties
 * `fileName` is the name of the resulting file (without the extension)
@@ -112,3 +112,24 @@ p
     != markdown("This is _going_ to be represented as `Markdown`").html
 ```
 Don't forget that Namp returns an object, so you'll need to add that `.html` at the end.
+
+As noted above, if the table of content is generated, you can use it in your Jade template, and the object has the following structure:
+
+```javascript
+[{
+    rank: 1,                   // the hierarchy in the toc (based on h1, h2, ..., h6)
+    name: "My first header",   // the content of the header
+    link: "#my-first-header",  // a direct internal url to be used
+    line: 0                    // the line number in the original markdown file
+  }, {
+    rank: 2,
+    name: "Subtitle",
+    link: "#subtitle",
+    line: 1
+  }, {
+    rank: 1,
+    name: "Second Header",
+    link: "#second-header",
+    line: 25
+  }]
+```
