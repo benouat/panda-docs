@@ -90,15 +90,16 @@ There are a number of arguments you can pass to Panda that affect the entire bui
  - `--template`: The location of your Jade templates [_./templates/default/layout.jade_]. Though the path is optional, you must have a valid Jade template _somewhere_.
  - `--assets`: The location of your assets (CSS, Javascript) [_./templates/default/assets_].
  - `--noheader`: Hides the header
- - `--notoc`: Hides the table of contents sidebar
+ - `--notoc`: Does not compute the table of content in each document
  - `--baseurl` : Base URL of all links
 
 ## Jade templates
 
 You have to specify at least one Jade file as a template for your pages. Within your Jade template, you have access to the following variables:
 
-* `content` is the transformed HTML content of your Markdown file
+* `content` is the transformed HTML content of your Markdown file. Unless `notoc` option is used, an anchor tag is automatically injected inside each header tag to be used with the generated table of content. It could be used also to bookmark a specific section of a document
 * `metadata` is an object containing your document-based metadata values
+* `toc` is an object containing your document table of content. If `notoc` option is used, the toc is not generated, and this variable will be `false`
 * `manifest` is an object containing the Manifest.json properties
 * `options` is an object containing your passed in properties
 * `fileName` is the name of the resulting file (without the extension)
